@@ -1,3 +1,5 @@
+import math
+
 def hasConflict(row, column, num, board):
 	columnConflict = False
 	rowConflict = False
@@ -11,33 +13,8 @@ def hasConflict(row, column, num, board):
 		if board[j][column] == num:
 			columnConflict = True
 
-	if row < 3 and column < 3:
-		ro = 0
-		col = 0
-	elif row < 3 and column < 6:
-		ro = 0
-		col = 3
-	elif row < 3 and column < 9:
-		ro = 0
-		col = 6
-	elif row < 6 and column < 3:
-		ro = 3
-		col = 0
-	elif row < 6 and column < 6:
-		ro = 3
-		col = 3
-	elif row < 6 and column < 9:
-		ro = 3
-		col = 6
-	elif row < 9 and column < 3:
-		ro = 6
-		col = 0
-	elif row < 9 and column < 6:
-		ro = 6
-		col = 3
-	else:
-		ro = 6
-		col = 6
+        ro = int(math.floor(row / 3) * 3)
+        col = int(math.floor(column / 3) * 3)
 
 	for k in range(ro,ro + 3):
 		for l in range(col, col + 3):
