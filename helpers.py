@@ -23,3 +23,15 @@ def hasConflict(row, column, num, board):
 		
 def generateEmptyBoard():
 	return [[0 for i in range(9)]for j in range(9)]
+
+def findNextEmptySpace(board, i, j):
+    while i < 9 and j < 9:
+        if board[i][j] != 0:
+            if j == 8:
+                i = i + 1
+                j = 0
+            else:
+                j = j + 1
+        else:
+            return [i, j]
+    return false
