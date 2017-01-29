@@ -34,4 +34,4 @@ def findNextEmptySpace(board, i, j):
                 j = j + 1
         else:
             return [i, j]
-    return false
+    return False
