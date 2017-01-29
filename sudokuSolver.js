@@ -1,43 +1,3 @@
-var board = 
-[ [ 2, 3, 4, 5, 6, 7, 8, 1, 9 ],
-  [ 5, 8, 1, 3, 2, 9, 4, 7, 6 ],
-  [ 6, 7, 9, 1, 4, 8, 3, 2, 5 ],
-  [ 9, 1, 2, 7, 3, 4, 6, 5, 8 ],
-  [ 7, 6, 3, 9, 8, 5, 1, 4, 2 ],
-  [ 8, 4, 5, 6, 1, 2, 9, 3, 7 ],
-  [ 3, 2, 8, 4, 5, 6, 7, 9, 1 ],
-  [ 4, 5, 7, 8, 9, 1, 2, 6, 3 ],
-  [ 1, 9, 6, 2, 7, 3, 5, 8, 4 ] ]
-
-  var solveBoard = function(board, arr, i, j) {
-    var nextEmpty = findNextEmptySpace(board, i, j)
-
-      if (!nextEmpty) {
-	return board;
-      }
-
-    i = nextEmpty[0];
-    j = nextEmpty[1];
-
-
-    var m = j === 8 ? i + 1 : i;
-    var n = j === 8 ? 0 : j + 1;
-
-    for (var k = 0; k < arr.length; k++) {
-      var num = arr[k];
-
-      if (!hasConflict(i, j, num, board)) {
-	board[i][j] = num;
-
-	if (solveBoard(board, arr, m, n)) {
-	  return board;
-	} else {
-	  board[i][j] = 0;
-	}
-      }
-    }
-  }
-
 var hasConflict = function(row, column, num, board) {
   //row conflict
   for (var i = 0; i < 9; i++) {
@@ -66,6 +26,7 @@ var hasConflict = function(row, column, num, board) {
   }
 }
 
+
 var findNextEmptySpace = function(board, i, j) {
   while (i < 9 && j < 9) {
     if (board[i][j] !== 0) {
@@ -78,5 +39,41 @@ var findNextEmptySpace = function(board, i, j) {
   return false;
 }
 
+var solveBoard = function(board, arr, i, j) {
+  var nextEmpty = findNextEmptySpace(board, i, j)
+
+    if (!nextEmpty) {
+      return board;
+    }
+
+  i = nextEmpty[0];
+  j = nextEmpty[1];
+
+  for (var k = 0; k < arr.length; k++) {
+    var current = arr[k];
+
+    if (!hasConflict(i, j, current, board)) {
+      board[i][j] = current;
+
+      if (solveBoard(board, arr, i, j)) {
+	return board;
+      } else {
+	board[i][j] = 0;
+      }
+    }
+  }
+}
+
+var board = [
+  [0,0,0,0,0,0,0,1,0],
+  [5,0,0,0,2,9,0,7,0],
+  [0,0,0,1,0,0,3,0,0],
+  [9,0,0,7,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,2,0,0,7],
+  [0,0,8,0,0,6,0,0,0],
+  [0,5,0,8,9,0,0,0,3],
+  [0,9,0,0,0,0,0,0,0],
+]
 
 console.log(solveBoard(board, [1,2,3,4,5,6,7,8,9], 0,0));
